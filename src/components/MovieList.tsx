@@ -7,14 +7,21 @@ interface Movie {
   poster_path: string;
   release_date: string;
   vote_average: number;
+  popularity: number;
+  genre_ids: number[];
 }
 
 const MovieList = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [genre, setGenre] = useState<number | null>(null);
+  const [year, setYear] = useState<number | null>(null);
+  const [sortBy, setSortBy] = useState<string>('popularity');
+  const [order, setOrder] = useState<string>('desc');
+  const [page] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false)
 
-  // 🔍 Fetch Popular Movies (Default)
+  // Load popular movies by default
   useEffect(() => {
     loadPopularMovies();
   }, []);
@@ -33,15 +40,18 @@ const MovieList = () => {
       });
   };
 
-  // 🔎 Handle Search
+  // Handle full search with filters
   const handleSearch = () => {
-    if (searchQuery.trim() === '') {
-      loadPopularMovies(); // If search is empty, load popular movies
-      return;
-    }
-
     setLoading(true);
-    searchMovies(searchQuery)
+    searchMovies({
+      title: searchQuery,
+      genre: genre || undefined,
+      year: year || undefined,
+      sort_by: sortBy as 'popularity' | 'vote_average' | 'release_date',
+      order: order as 'asc' | 'desc',
+      page: page,
+      limit: 12,
+    })
       .then((response) => {
         const movieData = response.data.movies || [];
         setMovies(movieData);
@@ -53,7 +63,7 @@ const MovieList = () => {
       });
   };
 
-  // 🔄 Handle Enter Key Press
+  // Handle Enter key for search
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       handleSearch();
@@ -62,19 +72,63 @@ const MovieList = () => {
 
   return (
     <div className="p-4">
-      {/* 🔎 Search Bar */}
-      <div className="mb-4 flex justify-center">
+      {/* 🔍 Search Bar */}
+      <div className="mb-4 flex flex-col md:flex-row gap-2 items-center">
         <input
           type="text"
           placeholder="Search movies..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyPress}
-          className="border border-gray-400 rounded-md px-4 py-2 w-1/2 mr-2"
+          className="border rounded-md px-4 py-2 w-full md:w-1/3"
         />
+
+        {/* 🎬 Genre Filter */}
+        <select
+          value={genre || ''}
+          onChange={(e) => setGenre(Number(e.target.value) || null)}
+          className="border rounded-md px-4 py-2"
+        >
+          <option value="">All Genres</option>
+          <option value="28">Action</option>
+          <option value="12">Adventure</option>
+          <option value="16">Animation</option>
+          <option value="35">Comedy</option>
+        </select>
+
+        {/* 📅 Year Filter */}
+        <input
+          type="number"
+          placeholder="Year"
+          value={year || ''}
+          onChange={(e) => setYear(Number(e.target.value))}
+          className="border rounded-md px-4 py-2 w-24"
+        />
+
+        {/* 🔃 Sort By */}
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="border rounded-md px-4 py-2"
+        >
+          <option value="popularity">Popularity</option>
+          <option value="vote_average">Rating</option>
+          <option value="release_date">Release Date</option>
+        </select>
+
+        {/* 🔼🔽 Order */}
+        <select
+          value={order}
+          onChange={(e) => setOrder(e.target.value)}
+          className="border rounded-md px-4 py-2"
+        >
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+
         <button
           onClick={handleSearch}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
         >
           Search
         </button>
