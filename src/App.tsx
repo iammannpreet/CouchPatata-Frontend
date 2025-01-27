@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from "react";
-import MovieList from "./components/MovieList";
 import AnimatedCounter from "./pages/introLoader/IntroLoader";
-import Index from "./components/Landing";
-import './App.css'
+import Landing from "./components/Landing";
+import MovieList from "./components/MovieList";
+import "./App.css";
+import { AnimatePresence } from "framer-motion";
 
 const App: React.FC = () => {
-  const [hasLoaded, setHasLoaded] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setHasLoaded(true);
-    }, 3200);
+    (
+      async () => {
+        const LocomotiveScroll = (await import('locomotive-scroll')).default
+        const locomotiveScroll = new LocomotiveScroll();
 
-    return () => clearTimeout(timer);
-  }, []);
-
+        setTimeout(() => {
+          setIsLoading(false);
+          document.body.style.cursor = 'default'
+          window.scrollTo(0, 0);
+        }, 3200)
+      }
+    )()
+  }, [])
   return (
-    <div className="app-container relative">
-    {!hasLoaded ? (
-      <div className="relative h-screen bg-gray-900 text-white">
-        <div className="absolute bottom-[50px] left-[50px] text-9xl">
-          <AnimatedCounter from={0} to={100} />
-        </div>
-      </div>
-    ) : (
-      <div>
-        <Index />
-        <MovieList />
-      </div>
-    )}
-  </div>
+    <main>
+      {/* Preloader logic with AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {isLoading && 
+            <AnimatedCounter key="animated-counter" from={0} to={100} />
+        }
+      </AnimatePresence> 
+          {/* <Landing /> */}
+          <MovieList />
+    </main>
   );
 };
 

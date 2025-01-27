@@ -1,5 +1,6 @@
 "use client";
 
+import styles from "./style.module.scss";
 import { KeyframeOptions, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -41,7 +42,10 @@ const AnimatedCounter = ({ from, to, animationOptions }: AnimatedCounterProps) =
     };
   }, [from, to, animationOptions]);
 
-  return <span ref={ref} />;
+  return(<div className={styles.introduction}> 
+    <span ref={ref} />
+</div>
+  );
 };
 
 export default AnimatedCounter;

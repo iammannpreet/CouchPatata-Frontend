@@ -71,7 +71,7 @@ const MovieList = () => {
   };
 
   return (
-    <div className="p-4">
+    <div class='bg-zinc-100'>
       {/* 🔍 Search Bar */}
       <div className="mb-4 flex flex-col md:flex-row gap-2 items-center">
         <input
