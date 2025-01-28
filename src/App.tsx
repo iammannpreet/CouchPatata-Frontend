@@ -9,24 +9,39 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      setTimeout(() => {
-        setIsLoading(false);
-        document.body.style.cursor = 'default';
-        window.scrollTo(0, 0);
-      }, 3200);
-    })();
+    // Disable scrolling while loading
+    document.body.style.overflow = 'hidden';
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      document.body.style.cursor = 'default';
+      document.body.style.overflow = ''; // Re-enable scrolling
+      window.scrollTo(0, 0);
+    }, 5200);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = '';
+    };
   }, []);
+
   return (
     <main>
       {/* Preloader logic with AnimatePresence */}
       <AnimatePresence mode="wait">
         {isLoading && (
-          <AnimatedCounter key="animated-counter" from={0} to={100} />
+          <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+            <AnimatedCounter key="animated-counter" from={0} to={100} />
+          </div>
         )}
       </AnimatePresence>
-      {/* <Landing /> */}
-      <MovieList />
+      {!isLoading && (
+        <>
+          {/* Render content only after loading */}
+
+          <MovieList />
+        </>
+      )}
     </main>
   );
 };

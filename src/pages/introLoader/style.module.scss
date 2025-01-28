@@ -1,6 +1,11 @@
-.introduction {
+.counter {
     height: 100vh;
     width: 100vw;
-    background-color: #7444f7;
+    background-color: #212121;
     font-size: 9rem;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    color: white;
+    padding-left: 3.5%;
 }

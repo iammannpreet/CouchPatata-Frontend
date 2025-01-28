@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import styles from "./style.module.scss";
-import { KeyframeOptions, animate } from "framer-motion";
-import { useEffect, useRef } from "react";
+import styles from './style.module.scss';
+import { KeyframeOptions, animate } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 type AnimatedCounterProps = {
   from: number;
@@ -10,7 +10,11 @@ type AnimatedCounterProps = {
   animationOptions?: KeyframeOptions;
 };
 
-const AnimatedCounter = ({ from, to, animationOptions }: AnimatedCounterProps) => {
+const AnimatedCounter = ({
+  from,
+  to,
+  animationOptions,
+}: AnimatedCounterProps) => {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -22,14 +26,14 @@ const AnimatedCounter = ({ from, to, animationOptions }: AnimatedCounterProps) =
     element.textContent = `${from}%`;
 
     // If reduced motion is enabled in system's preferences
-    if (window.matchMedia("(prefers-reduced-motion)").matches) {
+    if (window.matchMedia('(prefers-reduced-motion)').matches) {
       element.textContent = `${to}%`;
       return;
     }
 
     const controls = animate(from, to, {
-      duration: 3,
-      ease: "easeOut",
+      duration: 5,
+      ease: 'easeOut',
       ...animationOptions,
       onUpdate(value) {
         element.textContent = `${value.toFixed(0)}%`;
@@ -42,9 +46,10 @@ const AnimatedCounter = ({ from, to, animationOptions }: AnimatedCounterProps) =
     };
   }, [from, to, animationOptions]);
 
-  return(<div className={styles.introduction}> 
-    <span ref={ref} />
-</div>
+  return (
+    <div className={styles.counter}>
+      <span ref={ref} />
+    </div>
   );
 };
 
