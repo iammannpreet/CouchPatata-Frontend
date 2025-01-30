@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { startLoaderAnimation } from './animation'; // Import animation function
-import styles from './style.module.scss'; // Keep only necessary SCSS
+import { startLoaderAnimation } from './animation';
+import styles from './style.module.scss';
 
 const AnimatedCounter = () => {
   useEffect(() => {
