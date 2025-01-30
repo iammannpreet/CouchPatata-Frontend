@@ -26,14 +26,15 @@ export const startLoaderAnimation = () => {
           duration: 0.85,
           ease: 'power4.inOut',
           onStart: () => {
-            const countWrapper = document.querySelector('[class*="Wrapper"]');
-            if (countWrapper) {
-              gsap.to(countWrapper, {
-                x: stepDistance * i,
-                duration: 0.85,
-                ease: 'power4.inOut',
+            document
+              .querySelectorAll('[class*="Wrapper"]')
+              .forEach((wrapper) => {
+                gsap.to(wrapper, {
+                  x: stepDistance * i,
+                  duration: 0.85,
+                  ease: 'power4.inOut',
+                });
               });
-            }
           },
         });
       }
