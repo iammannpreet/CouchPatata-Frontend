@@ -1,55 +1,123 @@
 'use client';
 
 import styles from './style.module.scss';
-import { KeyframeOptions, animate } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { startLoaderAnimation } from './animation'; // Import animation function
 
-type AnimatedCounterProps = {
-  from: number;
-  to: number;
-  animationOptions?: KeyframeOptions;
-};
-
-const AnimatedCounter = ({
-  from,
-  to,
-  animationOptions,
-}: AnimatedCounterProps) => {
-  const ref = useRef<HTMLSpanElement>(null);
-
+const AnimatedCounter = () => {
   useEffect(() => {
-    const element = ref.current;
-
-    if (!element) return;
-
-    // Set initial value
-    element.textContent = `${from}%`;
-
-    // If reduced motion is enabled in system's preferences
-    if (window.matchMedia('(prefers-reduced-motion)').matches) {
-      element.textContent = `${to}%`;
-      return;
-    }
-
-    const controls = animate(from, to, {
-      duration: 5,
-      ease: 'easeOut',
-      ...animationOptions,
-      onUpdate(value) {
-        element.textContent = `${value.toFixed(0)}%`;
-      },
-    });
-
-    // Cleanup on unmount
-    return () => {
-      controls.stop();
-    };
-  }, [from, to, animationOptions]);
-
+    startLoaderAnimation();
+  }, []);
   return (
-    <div className={styles.counter}>
-      <span ref={ref} />
-    </div>
+    <main>
+      <div className={styles.loader}>
+        {/* FIRST COUNTER */}
+        <div className={styles.Wrapper}>
+          <div className={styles.count}>
+            <div className={styles.digit}>
+              <h1>9</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>8</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>7</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>4</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>2</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>0</h1>
+            </div>
+          </div>
+        </div>
+
+        {/* SECOND COUNTER */}
+        <div className={styles.Wrapper}>
+          <div className={styles.count}>
+            <div className={styles.digit}>
+              <h1>9</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>5</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>9</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>5</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>1</h1>
+            </div>
+            <div className={styles.digit}>
+              <h1>0</h1>
+            </div>
+          </div>
+        </div>
+        <div className={styles.revealer}>
+          <svg
+            width="344"
+            height="344"
+            viewBox="0 0 344 344"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M-7.51836e-06 172L97.6202 169.159C136.649 168.022 168.022 136.649 169.158 97.6202L172 2.29992e-05L174.841 97.6202C175.978 136.649 207.351 168.022 246.38 169.159L344 172L246.38 174.841C207.351 175.978 175.978 207.351 174.841 246.38L172 344L169.159 246.38C168.022 207.351 136.649 175.978 97.6202 174.842L-7.51836e-06 172Z"
+              fill="red"
+            />
+          </svg>
+        </div>
+        <div className={styles.revealer}>
+          <svg
+            width="344"
+            height="344"
+            viewBox="0 0 344 344"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M-7.51836e-06 172L97.6202 169.159C136.649 168.022 168.022 136.649 169.158 97.6202L172 2.29992e-05L174.841 97.6202C175.978 136.649 207.351 168.022 246.38 169.159L344 172L246.38 174.841C207.351 175.978 175.978 207.351 174.841 246.38L172 344L169.159 246.38C168.022 207.351 136.649 175.978 97.6202 174.842L-7.51836e-06 172Z"
+              fill="blue"
+            />
+          </svg>
+        </div>
+        <div className={styles.revealer}>
+          <svg
+            width="344"
+            height="344"
+            viewBox="0 0 344 344"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M-7.51836e-06 172L97.6202 169.159C136.649 168.022 168.022 136.649 169.158 97.6202L172 2.29992e-05L174.841 97.6202C175.978 136.649 207.351 168.022 246.38 169.159L344 172L246.38 174.841C207.351 175.978 175.978 207.351 174.841 246.38L172 344L169.159 246.38C168.022 207.351 136.649 175.978 97.6202 174.842L-7.51836e-06 172Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+      </div>
+      <div className={styles.container}>
+        <div className={styles.siteInfo}>
+          <div className={styles.line}>
+            <p>Digital & Brand Design</p>
+          </div>
+          <div className={styles.line}>
+            <p>Whatever</p>
+          </div>
+          <div className={styles.toggleBtn}>
+            <button className="text-red-900">Toggle</button>
+          </div>
+          <div className={styles.header}>
+            <h1>Hello</h1>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
