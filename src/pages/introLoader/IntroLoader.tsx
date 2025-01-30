@@ -17,7 +17,7 @@ const AnimatedCounter = () => {
           <div className={`${styles.count} relative flex w-[1080px] h-[360px]`}>
             {[9, 8, 7, 4, 2, 0].map((num, i) => (
               <div key={i} className="relative w-[180px] h-[360px]">
-                <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[260px] font-light leading-none">
+                <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[320px] font-light leading-none">
                   {num}
                 </h1>
               </div>
@@ -30,7 +30,7 @@ const AnimatedCounter = () => {
           <div className={`${styles.count} relative flex w-[1080px] h-[360px]`}>
             {[9, 5, 9, 5, 1, 0].map((num, i) => (
               <div key={i} className="relative w-[180px] h-[360px]">
-                <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[260px] font-light leading-none">
+                <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[320px] font-light leading-none">
                   {num}
                 </h1>
               </div>
