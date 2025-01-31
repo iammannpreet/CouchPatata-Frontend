@@ -46,7 +46,7 @@ export const startLoaderAnimation = () => {
       document.querySelectorAll('[class*="revealer"] svg').forEach((el, i) => {
         gsap.to(el, {
           scale: 45,
-          duration: 1.5,
+          duration: 3,
           delay: delays[i],
           ease: 'power4.inOut',
           onComplete: () => {
@@ -56,37 +56,6 @@ export const startLoaderAnimation = () => {
           },
         });
       });
-
-      const headerTitle = document.querySelector('[class*="header"] h1');
-      if (headerTitle) {
-        gsap.to(headerTitle, {
-          onStart: () => {
-            const toggleBtn = document.querySelector('[class*="toggleBtn"]');
-            if (toggleBtn) {
-              gsap.to(toggleBtn, {
-                scale: 1,
-                duration: 1,
-                ease: 'power4.inOut',
-              });
-            }
-
-            const lineElements = document.querySelectorAll('[class*="line"] p');
-            if (lineElements.length > 0) {
-              gsap.to(lineElements, {
-                y: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: 'power3.out',
-              });
-            }
-          },
-          rotateY: 0,
-          opacity: 1,
-          duration: 2,
-          ease: 'power3.out',
-          delay: 8,
-        });
-      }
     }
-  }, 200);
+  });
 };
