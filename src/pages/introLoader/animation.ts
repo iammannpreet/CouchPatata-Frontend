@@ -1,6 +1,7 @@
+// animation.ts
 import { gsap } from 'gsap';
 
-export const startLoaderAnimation = () => {
+export const startLoaderAnimation = (onGsapComplete?: () => void) => {
   const interval = setInterval(() => {
     const countElements = document.querySelectorAll('[class*="count"]');
     if (countElements.length > 0) {
@@ -12,6 +13,7 @@ export const startLoaderAnimation = () => {
       const stepDistance = finalPosition / 6;
       const tl = gsap.timeline();
 
+      // Move counters left
       tl.to('[class*="count"]', {
         x: -900,
         duration: 0.85,
@@ -19,6 +21,7 @@ export const startLoaderAnimation = () => {
         ease: 'power4.inOut',
       });
 
+      // Steps for each counter block
       for (let i = 1; i <= 6; i++) {
         const xPosition = -900 + i * 180;
         tl.to(countElements, {
@@ -39,8 +42,8 @@ export const startLoaderAnimation = () => {
         });
       }
 
+      // Scale revealers
       gsap.set('[class*="revealer"] svg', { scale: 0 });
-
       const delays = [6, 6.5, 7];
 
       document.querySelectorAll('[class*="revealer"] svg').forEach((el, i) => {
@@ -50,8 +53,9 @@ export const startLoaderAnimation = () => {
           delay: delays[i],
           ease: 'power4.inOut',
           onComplete: () => {
+            // When the last revealer is done, trigger the callback
             if (i === delays.length - 1) {
-              document.querySelector('[class*="loader"]')?.remove();
+              onGsapComplete && onGsapComplete();
             }
           },
         });

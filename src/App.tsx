@@ -12,7 +12,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 9000);
+    }, 6500);
   }, []);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const App = () => {
       >
         {isLoading && <IntroLoader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
-      {animationComplete && <MovieList />}
+      {/* {animationComplete && <MovieList />} */}
     </main>
   );
 };
