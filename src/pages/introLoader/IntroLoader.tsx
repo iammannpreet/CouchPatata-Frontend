@@ -7,7 +7,6 @@ import logo from './logo.svg';
 import styles from './style.module.scss';
 import { startLoaderAnimation } from './animation';
 
-// Framer Motion slide-up (you can keep or remove as needed)
 export const slideUp = {
   initial: {
     top: 0,
@@ -23,7 +22,6 @@ export const slideUp = {
 };
 
 const IntroLoader = () => {
-  // 1) Create a ref for the logo
   const logoRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -48,8 +46,7 @@ const IntroLoader = () => {
           <div key={i} className="relative w-[180px] h-[360px]">
             <h1
               className="absolute top-1/2 left-1/2 
-               -translate-x-1/2 -translate-y-1/2 text-[320px] 
-               font-light leading-none"
+               -translate-x-1/2 -translate-y-1/2 text-[270px]"
             >
               {num}
             </h1>
@@ -70,9 +67,7 @@ const IntroLoader = () => {
       <Counter numbers={[9, 8, 7, 4, 2, 0]} />
       <Counter numbers={[9, 5, 9, 5, 1, 0]} />
 
-      {/* Centering the Logo */}
       <div className="absolute inset-0 flex items-center justify-center z-50">
-        {/* 3) Attach the ref to the img */}
         <img
           ref={logoRef}
           src={logo}
