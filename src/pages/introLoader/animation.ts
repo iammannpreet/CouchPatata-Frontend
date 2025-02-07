@@ -1,4 +1,3 @@
-// animation.ts
 import { gsap } from 'gsap';
 
 export const startLoaderAnimation = (onGsapComplete?: () => void) => {
@@ -21,7 +20,6 @@ export const startLoaderAnimation = (onGsapComplete?: () => void) => {
         ease: 'power4.inOut',
       });
 
-      // Steps for each counter block
       for (let i = 1; i <= 6; i++) {
         const xPosition = -900 + i * 180;
         tl.to(countElements, {
@@ -42,24 +40,22 @@ export const startLoaderAnimation = (onGsapComplete?: () => void) => {
         });
       }
 
-      // Scale revealers
-      gsap.set('[class*="revealer"] svg', { scale: 0 });
-      const delays = [6, 6.5, 7];
+      // gsap.set('[class*="revealer"] svg', { scale: 0 });
+      // const delays = [6, 6.5, 7];
 
-      document.querySelectorAll('[class*="revealer"] svg').forEach((el, i) => {
-        gsap.to(el, {
-          scale: 45,
-          duration: 3,
-          delay: delays[i],
-          ease: 'power4.inOut',
-          onComplete: () => {
-            // When the last revealer is done, trigger the callback
-            if (i === delays.length - 1) {
-              onGsapComplete && onGsapComplete();
-            }
-          },
-        });
-      });
+      // document.querySelectorAll('[class*="revealer"] svg').forEach((el, i) => {
+      //   gsap.to(el, {
+      //     scale: 45,
+      //     duration: 3,
+      //     delay: delays[i],
+      //     ease: 'power4.inOut',
+      //     onComplete: () => {
+      //       if (i === delays.length - 1) {
+      //         onGsapComplete && onGsapComplete();
+      //       }
+      //     },
+      //   });
+      // });
     }
   });
 };

@@ -1,10 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 import { motion } from 'framer-motion';
+import logo from './logo.svg';
 import styles from './style.module.scss';
 import { startLoaderAnimation } from './animation';
 
+// Framer Motion slide-up (you can keep or remove as needed)
 export const slideUp = {
   initial: {
     top: 0,
@@ -20,8 +23,22 @@ export const slideUp = {
 };
 
 const IntroLoader = () => {
+  // 1) Create a ref for the logo
+  const logoRef = useRef<HTMLImageElement>(null);
+
   useEffect(() => {
     startLoaderAnimation();
+
+    gsap.fromTo(
+      logoRef.current,
+      { y: 300 },
+      {
+        y: 0,
+        duration: 1.5,
+        ease: 'bounce.out',
+        delay: 6,
+      }
+    );
   }, []);
 
   const Counter = ({ numbers }: { numbers: number[] }) => (
@@ -47,17 +64,21 @@ const IntroLoader = () => {
       variants={slideUp}
       initial="initial"
       exit="exit"
-      className="fixed w-full h-full bg-black text-white flex items-end overflow-hidden"
+      className="fixed w-full h-full bg-[#BBCE8A] text-[#D16014] flex overflow-hidden"
       style={{ top: 0 }}
     >
-      {/* Using the Counter Components */}
       <Counter numbers={[9, 8, 7, 4, 2, 0]} />
       <Counter numbers={[9, 5, 9, 5, 1, 0]} />
 
-      <div className={styles.revealer}>
-        <svg>
-          <motion.path initial="initial" exit="exit" />
-        </svg>
+      {/* Centering the Logo */}
+      <div className="absolute inset-0 flex items-center justify-center z-50">
+        {/* 3) Attach the ref to the img */}
+        <img
+          ref={logoRef}
+          src={logo}
+          alt="Logo"
+          className="max-w-full max-h-full"
+        />
       </div>
     </motion.main>
   );
