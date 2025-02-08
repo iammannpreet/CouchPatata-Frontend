@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { motion } from 'framer-motion';
-import logo from './logo.svg';
+import logo from '../../../public/logo.svg';
 import styles from './style.module.scss';
 import { startLoaderAnimation } from './animation';
 

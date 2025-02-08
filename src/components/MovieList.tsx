@@ -72,7 +72,7 @@ const MovieList = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 text-black">
       {/* 🔍 Search Bar */}
       <motion.main
         variants={slideLeft}

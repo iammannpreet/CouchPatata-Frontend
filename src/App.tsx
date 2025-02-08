@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import IntroLoader from './pages/introLoader/IntroLoader';
 import './App.css';
-import MovieList from './components/MovieList';
+import Landing from './pages/landing/Landing';
 import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
@@ -31,9 +31,9 @@ const App = () => {
         mode="wait"
         onExitComplete={() => setAnimationComplete(true)}
       >
-        {isLoading && <IntroLoader onComplete={() => setIsLoading(false)} />}
+        {isLoading && <IntroLoader />}
       </AnimatePresence>
-      {animationComplete && <MovieList />}
+      {animationComplete && <Landing />}
     </main>
   );
 };
