@@ -27,13 +27,13 @@ const App = () => {
 
   return (
     <main>
-      <AnimatePresence
+      {/* <AnimatePresence
         mode="wait"
         onExitComplete={() => setAnimationComplete(true)}
       >
         {isLoading && <IntroLoader />}
-      </AnimatePresence>
-      {animationComplete && <Landing />}
+      </AnimatePresence> */}
+      <Landing />
     </main>
   );
 };
